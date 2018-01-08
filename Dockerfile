@@ -1,15 +1,8 @@
-FROM jenkinsci/jnlp-slave
-MAINTAINER Greg Brown <greg00brown@gmail.com>
+FROM gcr.io/cloud-solutions-images/jenkins-k8s-slave:latest
 
-ENV CLOUDSDK_CORE_DISABLE_PROMPTS 1
-ENV PATH /opt/google-cloud-sdk/bin:$PATH
-
-USER root
-
+MAINTAINER Greg Brown greg.brown@lootcrate.com
 RUN apt-get update -y
-RUN apt-get install -y jq \
-      libapparmor-dev \
-      libseccomp-dev
-RUN curl https://sdk.cloud.google.com | bash && mv google-cloud-sdk /opt
-RUN gcloud components install kubectl
+RUN apt-get upgrade -y
+ENV CLOUDSDK_CORE_DISABLE_PROMPTS 1
+RUN gcloud components update
 
